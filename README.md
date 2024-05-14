@@ -1,4 +1,4 @@
-# Electron Instagram Private
+# Electron Instagram App
 
 An Electron application with Vue using Instagram Private API to perform account functionalities
 
