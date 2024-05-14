@@ -1,6 +1,6 @@
-# electron-test
+# Electron Instagram Private
 
-An Electron application with Vue
+An Electron application with Vue using Instagram Private API to perform account functionalities
 
 ## Recommended IDE Setup
 
