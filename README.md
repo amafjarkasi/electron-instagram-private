@@ -2,6 +2,7 @@
 
 An Electron application with Vue using Instagram Private API to perform account functionalities
 
+
 ![electron_Y9RRMMAZ1k](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/234f6f5d-3778-4819-97cb-b838f5de6983)
 ![electron_gbVyA1kDGd](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/2d247b45-e32f-46ad-903b-aa32c1879f42)
 ![electron_m02SZntEuP](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/bd84e172-651b-48b9-afd6-ba37d712a6d0)
