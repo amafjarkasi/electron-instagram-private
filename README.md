@@ -2,7 +2,7 @@
 
 An Electron application with Vue using Instagram Private API to perform account functionalities
 
-![electron_moBUOEEr4J](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/228ae7cd-3876-4a1a-b2cf-90b8eecebcad)
+![electron_HFyAfPqNeh](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/b11df66a-b8e4-44f6-ae96-4ed1669b4812)
 
 Uses third-party library to handle Instagram login, obtaining cookie, saving and utilizing for automated functions.
 
