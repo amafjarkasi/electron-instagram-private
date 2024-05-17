@@ -14,6 +14,22 @@ const storage = createStorage({
 
 let { igApi, getCookie } = require('insta-fetcher')
 
+async function fetchAndDownloadPosts(username) {
+  let session_id = await storage.getItem('ig:cookie')
+  let ig = new igApi(session_id)
+  let posts = await ig.fetchUserPosts(username)
+
+  console.log(posts.length)
+
+  // for (let post of posts.edges) {
+  //   console.log(post.node.display_url)
+  //   if (post.node.display_url) {
+  //     let filename = post.node.shortcode + '.jpg'
+  //     await downloadProfilePic(post.node.display_url, filename)
+  //   }
+  // }
+}
+
 async function downloadProfilePic(url, filename) {
   return new Promise((resolve, reject) => {
     https
@@ -68,12 +84,15 @@ function createWindow() {
     height: 500,
     show: false,
     autoHideMenuBar: true,
+    resizable: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
+
+  mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -111,6 +130,8 @@ app.whenReady().then(() => {
 
   ipcMain.handle('get-account-info', async (_event) => {
     console.log('getAccountInfo-async received')
+
+    // await fetchAndDownloadPosts('instagram')
     let accountInfo = await getAccountInfo()
     if (accountInfo && accountInfo.user && accountInfo.user.profile_pic_url) {
       await downloadProfilePic(accountInfo.user.profile_pic_url, 'profile_pic.jpg')

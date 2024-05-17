@@ -1,31 +1,31 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Versions from './components/Versions.vue'
+import ConfigForm from './components/ConfigForm.vue'
+import Statistics from './components/Statistics.vue'
+import LoginForm from './components/LoginForm.vue'
+import Usage from './components/Usage.vue'
+import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
+import { HomeFilled, Setting, Star, User, InfoFilled } from '@element-plus/icons-vue'
+import { useUserStore } from './store/user.js'
 
 const username = ref('')
 const password = ref('')
 const status = ref('Not logged in')
+const userStore = useUserStore()
 
-onMounted(async () => {
-  const storedUsername = await window.electron.ipcRenderer.invoke('get-username')
-  const storedPassword = await window.electron.ipcRenderer.invoke('get-password')
+// onMounted(async () => {
+//   const storedUsername = await window.electron.ipcRenderer.invoke('get-username')
+//   const storedPassword = await window.electron.ipcRenderer.invoke('get-password')
 
-  if (storedUsername) {
-    username.value = storedUsername
-  }
+//   if (storedUsername) {
+//     username.value = storedUsername
+//   }
 
-  if (storedPassword) {
-    password.value = storedPassword
-  }
-})
-
-// const ipcHandle = () => {
-//   window.electron.ipcRenderer.send('ping')
-//   window.electron.ipcRenderer.on('pong', () => {
-//     console.log('pong')
-//     document.getElementsByClassName('text')[0].innerText = 'Pong'
-//   })
-// }
+//   if (storedPassword) {
+//     password.value = storedPassword
+//   }
+// })
 
 const startLogin = async () => {
   status.value = 'Logging in...'
@@ -51,22 +51,79 @@ const getAccount = async () => {
 </script>
 
 <template>
-  <div class="app-bar">
-    <h1 class="app-name">Electron Instagram</h1>
-  </div>
-  <p class="tip">Enter credentials below</p>
-  <div class="actions">
-    <div class="action">
-      <input v-model="username" class="input-field" type="text" placeholder="Username" />
-      <input v-model="password" class="input-field" type="password" placeholder="Password" />
-    </div>
-  </div>
-  <div id="button-section">
-    <a class="login-button" target="_blank" rel="noreferrer" @click="startLogin">Login</a>
-    <a class="login-button" target="_blank" rel="noreferrer" @click="getAccount">Account</a>
-  </div>
-  <div class="new-section">
-    <p>Status: {{ status }}</p>
-  </div>
-  <Versions />
+  <el-tabs type="border-card" class="demo-tabs" height="100%">
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <HomeFilled />
+          </el-icon>
+          <span>Main</span>
+        </span>
+      </template>
+      <LoginForm />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <Setting />
+          </el-icon>
+          <span>Config</span>
+        </span>
+      </template>
+      <ConfigForm />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <Star />
+          </el-icon>
+          <span>Role</span>
+        </span>
+      </template>
+      <Statistics />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <User />
+          </el-icon>
+          <span>Task</span>
+        </span>
+      </template>
+      <Usage />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <InfoFilled />
+          </el-icon>
+          <span>About</span>
+        </span>
+      </template>
+      <Versions />
+    </el-tab-pane>
+  </el-tabs>
 </template>
+
+<style>
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.demo-tabs .custom-tabs-label .el-icon {
+  vertical-align: middle;
+}
+
+.demo-tabs .custom-tabs-label span {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+</style>
