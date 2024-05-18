@@ -1,12 +1,16 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElNotification } from 'element-plus'
+import { useLoggerStore } from '../store/logger'
+
+const loggerStore = useLoggerStore()
 const form = reactive({
   name: '',
   email: '',
   password: ''
 })
 const onSubmit = () => {
+  loggerStore.addLog('Submitting form')
   console.log(form)
 }
 
@@ -17,6 +21,11 @@ const onReset = (msg) => {
     type: 'error'
   })
 }
+
+onMounted(() => {
+  loggerStore.addLog('Submitting form')
+
+})
 </script>
 <template>
   <el-card class="box-card" shadow="never">

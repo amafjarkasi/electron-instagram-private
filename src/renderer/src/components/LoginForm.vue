@@ -3,10 +3,12 @@ import { reactive, ref, computed } from 'vue'
 import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElMessage } from 'element-plus'
 import { Loading } from '@element-plus/icons-vue'
 import { useUserStore } from '../store/user'
+import { useLoggerStore } from '../store/logger'
 
 let formRef = ref(null)
 
 const userStore = useUserStore()
+const loggerStore = useLoggerStore()
 
 const form = reactive({
   username: '',
@@ -23,6 +25,7 @@ const rules = ref({
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 
 const errorMessage = (msg) => {
+  loggerStore.addLog('Error: ' + msg)
   ElMessage({
     message: msg,
     type: 'error',
@@ -41,15 +44,18 @@ const successMessage = (msg) => {
 }
 
 const onSubmit = async () => {
+  loggerStore.addLog('Submitting form')
   formRef.value.validate((valid) => {
     if (valid) {
       form.isLoading = true
       if (form.username === 'admin' && form.password === 'admin') {
         form.isLoading = false
         userStore.login(form.username)
+        loggerStore.addLog('Logged in')
       } else {
         form.isLoading = false
         userStore.disconnect()
+        loggerStore.addLog('Failed to login')
         errorMessage('Invalid username or password')
       }
     } else {
@@ -109,10 +115,10 @@ const onSubmit = async () => {
 
 .status-bar {
   position: fixed;
-  height: 20px;
+  height: 16px;
   bottom: 0;
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
   background-color: #409eff;
   text-align: center;
 }

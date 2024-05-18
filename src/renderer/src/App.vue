@@ -5,47 +5,50 @@ import ConfigForm from './components/ConfigForm.vue'
 import Statistics from './components/Statistics.vue'
 import LoginForm from './components/LoginForm.vue'
 import Usage from './components/Usage.vue'
+import LogViewer from './components/LogViewer.vue'
 import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
-import { HomeFilled, Setting, Star, User, InfoFilled } from '@element-plus/icons-vue'
+import { HomeFilled, Setting, Star, User, InfoFilled, ChatDotRound } from '@element-plus/icons-vue'
 import { useUserStore } from './store/user.js'
+import { useLoggerStore } from './store/logger.js'
 
 const username = ref('')
 const password = ref('')
-const status = ref('Not logged in')
 const userStore = useUserStore()
+const loggerStore = useLoggerStore()
 
-// onMounted(async () => {
-//   const storedUsername = await window.electron.ipcRenderer.invoke('get-username')
-//   const storedPassword = await window.electron.ipcRenderer.invoke('get-password')
+onMounted(async () => {
+  loggerStore.addLog('App mounted')
+  // const storedUsername = await window.electron.ipcRenderer.invoke('get-username')
+  // const storedPassword = await window.electron.ipcRenderer.invoke('get-password')
 
-//   if (storedUsername) {
-//     username.value = storedUsername
-//   }
+  // if (storedUsername) {
+  //   username.value = storedUsername
+  // }
 
-//   if (storedPassword) {
-//     password.value = storedPassword
-//   }
-// })
+  // if (storedPassword) {
+  //   password.value = storedPassword
+  // }
+})
 
 const startLogin = async () => {
-  status.value = 'Logging in...'
+  // status.value = 'Logging in...'
   const loginStatus = await window.electron.ipcRenderer.invoke('login', {
     username: username.value,
     password: password.value
   })
   if (loginStatus) {
-    status.value = 'Logged in...'
+    // status.value = 'Logged in...'
   } else {
-    status.value = 'Failed to login...'
+    // status.value = 'Failed to login...'
   }
 }
 
 const getAccount = async () => {
   const account = await window.electron.ipcRenderer.invoke('get-account-info')
   if (account.user) {
-    status.value = `Logged in as ${account.user.username}`
+    // status.value = `Logged in as ${account.user.username}`
   } else {
-    status.value = 'Not logged in'
+    // status.value = 'Not logged in'
   }
 }
 </script>
@@ -95,6 +98,17 @@ const getAccount = async () => {
         </span>
       </template>
       <Usage />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
+            <ChatDotRound />
+          </el-icon>
+          <span>Log</span>
+        </span>
+      </template>
+      <LogViewer />
     </el-tab-pane>
     <el-tab-pane :disabled="!userStore.isLoggedIn">
       <template #label>
