@@ -2,13 +2,13 @@
 
 An Electron application with Vue using Instagram Private API to perform account functionalities
 
-
-![electron_Y9RRMMAZ1k](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/234f6f5d-3778-4819-97cb-b838f5de6983)
-![electron_gbVyA1kDGd](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/2d247b45-e32f-46ad-903b-aa32c1879f42)
-![electron_m02SZntEuP](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/bd84e172-651b-48b9-afd6-ba37d712a6d0)
-![electron_jfZZfhYZiF](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/d4f4172e-1cc8-49bb-910c-1d6babf3f97b)
-![electron_25O3e9cHay](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/6a1f0f0c-2789-4fcb-be0f-19b271b6f036)
-![electron_COuoXDH9xS](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/ea5cfedf-b3af-4fb3-8662-05ddb815d9a5)
+![electron_xmRL88rCD8](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/b93c978c-38e7-4699-b221-df1de7ded71d)
+![electron_Ud0F95GkU1](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/e94fcf4a-25a5-4297-8cb1-b93664be11fd)
+![electron_LP7a6CxPQ8](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/58bc2418-c2d4-423d-805f-d120ed43df13)
+![electron_JWXHmEE1CZ](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/35b756bf-e131-4e3f-8714-e11cc2e5f297)
+![electron_hOTP494vEd](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/61927f6d-5297-4f20-9da2-1f70270a089b)
+![electron_ALgA2zMTgc](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/48dffef8-59bd-4edb-bd3e-de1d9e780cd2)
+![electron_a3uiOtJizo](https://github.com/amafjarkasi/electron-instagram-private/assets/65797881/022491f2-0903-48b1-9609-b7de6888c3cd)
 
 
 Uses third-party library to handle Instagram login, obtaining cookie, saving and utilizing for automating different functions
