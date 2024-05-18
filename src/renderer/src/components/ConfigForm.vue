@@ -1,6 +1,14 @@
 <script setup>
 import { reactive, onMounted } from 'vue'
-import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElNotification } from 'element-plus'
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElButton,
+  ElCard,
+  ElNotification,
+  ElCheckbox
+} from 'element-plus'
 import { useLoggerStore } from '../store/logger'
 
 const loggerStore = useLoggerStore()
@@ -24,7 +32,6 @@ const onReset = (msg) => {
 
 onMounted(() => {
   loggerStore.addLog('Submitting form')
-
 })
 </script>
 <template>
@@ -38,6 +45,9 @@ onMounted(() => {
       </el-form-item>
       <el-form-item label="Password">
         <el-input v-model="form.password" type="password" />
+      </el-form-item>
+      <el-form-item label="Checkbox">
+        <el-checkbox v-model="form.checkbox">Check me</el-checkbox>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">Submit</el-button>

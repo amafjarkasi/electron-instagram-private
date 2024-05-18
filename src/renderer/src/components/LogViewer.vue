@@ -4,7 +4,7 @@
     v-model="logs"
     type="textarea"
     :rows="10"
-    placeholder="Please input your logs here..."
+    placeholder="Logs will be displayed here"
     resize="none"
   ></el-input>
 </template>

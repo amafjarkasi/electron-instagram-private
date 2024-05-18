@@ -6,6 +6,7 @@ import Statistics from './components/Statistics.vue'
 import LoginForm from './components/LoginForm.vue'
 import Usage from './components/Usage.vue'
 import LogViewer from './components/LogViewer.vue'
+import Functions from './components/Functions.vue'
 import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
 import { HomeFilled, Setting, Star, User, InfoFilled, ChatDotRound } from '@element-plus/icons-vue'
 import { useUserStore } from './store/user.js'
@@ -70,23 +71,12 @@ const getAccount = async () => {
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
-            <Setting />
-          </el-icon>
-          <span>Config</span>
-        </span>
-      </template>
-      <ConfigForm />
-    </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
-      <template #label>
-        <span class="custom-tabs-label">
-          <el-icon>
             <Star />
           </el-icon>
-          <span>Role</span>
+          <span>Functions</span>
         </span>
       </template>
-      <Statistics />
+      <Functions />
     </el-tab-pane>
     <el-tab-pane :disabled="!userStore.isLoggedIn">
       <template #label>
@@ -94,10 +84,15 @@ const getAccount = async () => {
           <el-icon>
             <User />
           </el-icon>
-          <span>Task</span>
+          <span>Tasks</span>
         </span>
       </template>
-      <Usage />
+      <div class="usage-container">
+        <Usage />
+      </div>
+      <div class="statistics-container">
+        <Statistics />
+      </div>
     </el-tab-pane>
     <el-tab-pane :disabled="!userStore.isLoggedIn">
       <template #label>
@@ -114,6 +109,17 @@ const getAccount = async () => {
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
+            <Setting />
+          </el-icon>
+          <span>Config</span>
+        </span>
+      </template>
+      <ConfigForm />
+    </el-tab-pane>
+    <el-tab-pane :disabled="!userStore.isLoggedIn">
+      <template #label>
+        <span class="custom-tabs-label">
+          <el-icon>
             <InfoFilled />
           </el-icon>
           <span>About</span>
@@ -125,6 +131,14 @@ const getAccount = async () => {
 </template>
 
 <style>
+.usage-container {
+  margin-bottom: 20px;
+}
+
+.statistics-container {
+  margin-top: 20px;
+}
+
 .demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;

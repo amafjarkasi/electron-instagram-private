@@ -25,7 +25,8 @@
     "element-plus": "^2.7.3",
     "insta-fetcher": "^1.3.35",
     "pinia": "^2.1.7",
-    "unstorage": "^1.10.2"
+    "unstorage": "^1.10.2",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.1",

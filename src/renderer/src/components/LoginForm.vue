@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref, computed } from 'vue'
-import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElMessage } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElMessage, ElCheckbox } from 'element-plus'
 import { Loading } from '@element-plus/icons-vue'
 import { useUserStore } from '../store/user'
 import { useLoggerStore } from '../store/logger'
@@ -14,7 +14,8 @@ const form = reactive({
   username: '',
   password: '',
   isLoading: false,
-  successful: false
+  successful: false,
+  emulateUserActions: false
 })
 
 const rules = ref({
@@ -24,27 +25,19 @@ const rules = ref({
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 
-const errorMessage = (msg) => {
-  loggerStore.addLog('Error: ' + msg)
+const popupMessage = (type, msg) => {
+  // success / warning / info / error
+  loggerStore.addLog(`Popup message: ${msg}`)
   ElMessage({
     message: msg,
-    type: 'error',
-    plain: true,
-    duration: 2000
-  })
-}
-
-const successMessage = (msg) => {
-  ElMessage({
-    message: msg,
-    type: 'success',
+    type: type,
     plain: true,
     duration: 2000
   })
 }
 
 const onSubmit = async () => {
-  loggerStore.addLog('Submitting form')
+  loggerStore.addLog(`Logging in with username: ${form.username} and password: ${form.password}`)
   formRef.value.validate((valid) => {
     if (valid) {
       form.isLoading = true
@@ -56,7 +49,7 @@ const onSubmit = async () => {
         form.isLoading = false
         userStore.disconnect()
         loggerStore.addLog('Failed to login')
-        errorMessage('Invalid username or password')
+        popupMessage('Invalid username or password')
       }
     } else {
       console.log('Error submitting form')
@@ -82,10 +75,13 @@ const onSubmit = async () => {
         @submit.prevent="onSubmit"
       >
         <el-form-item label="Username" prop="username">
-          <el-input v-model="form.username" />
+          <el-input v-model="form.username" :disabled="isLoggedIn" />
         </el-form-item>
         <el-form-item label="Password" prop="password">
-          <el-input v-model="form.password" type="password" />
+          <el-input v-model="form.password" type="password" :disabled="isLoggedIn" />
+        </el-form-item>
+        <el-form-item label="Options">
+          <el-checkbox v-model="form.emulateUserActions">Emulate User Actions</el-checkbox>
         </el-form-item>
         <el-form-item style="margin-bottom: auto">
           <el-button
@@ -94,6 +90,7 @@ const onSubmit = async () => {
             native-type="submit"
             :loading="form.isLoading"
             :loading-icon="Loading"
+            :disabled="isLoggedIn"
             >Submit</el-button
           >
         </el-form-item>
@@ -129,7 +126,7 @@ const onSubmit = async () => {
 }
 
 .parent-container {
-  padding-top: 20px;
+  padding-top: 10px;
   width: 100%;
 }
 

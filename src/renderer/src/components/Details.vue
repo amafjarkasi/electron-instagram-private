@@ -5,7 +5,7 @@
         <el-statistic :value="98500">
           <template #title>
             <div style="display: inline-flex; align-items: center">
-              Daily active users
+              Weekly active users
               <el-tooltip
                 effect="dark"
                 content="Number of users who logged into the product in one day"
@@ -36,7 +36,7 @@
         <el-statistic :value="693700">
           <template #title>
             <div style="display: inline-flex; align-items: center">
-              Monthly Active Users
+              Quarterly Active Users
               <el-tooltip
                 effect="dark"
                 content="Number of users who logged into the product in one month"
@@ -66,7 +66,7 @@
       <div class="statistic-card">
         <el-statistic :value="72000" title="New transactions today">
           <template #title>
-            <div style="display: inline-flex; align-items: center">New transactions today</div>
+            <div style="display: inline-flex; align-items: center">New transactions last week</div>
           </template>
         </el-statistic>
         <div class="statistic-footer">
@@ -80,8 +80,8 @@
             </span>
           </div>
           <div class="footer-item">
-            <el-icon :size="14" @click="router.push('/other')">
-              <ArrowRight />
+            <el-icon :size="14" @click="$router.go(-1)">
+              <ArrowLeft />
             </el-icon>
           </div>
         </div>
@@ -91,11 +91,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
 
-import { ArrowRight, CaretBottom, CaretTop, Warning } from '@element-plus/icons-vue'
-
-const router = useRouter()
+const versions = reactive({ ...window.electron.process.versions })
+import { ArrowLeft, CaretBottom, CaretTop, Warning } from '@element-plus/icons-vue'
 </script>
 
 <style scoped>
