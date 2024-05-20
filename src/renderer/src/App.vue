@@ -56,7 +56,7 @@ const getAccount = async () => {
 
 <template>
   <el-tabs type="border-card" class="demo-tabs" height="100%">
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
@@ -67,7 +67,7 @@ const getAccount = async () => {
       </template>
       <LoginForm />
     </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
@@ -78,7 +78,7 @@ const getAccount = async () => {
       </template>
       <Functions />
     </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
@@ -94,7 +94,7 @@ const getAccount = async () => {
         <Statistics />
       </div>
     </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
@@ -105,7 +105,7 @@ const getAccount = async () => {
       </template>
       <LogViewer />
     </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>
@@ -116,7 +116,7 @@ const getAccount = async () => {
       </template>
       <ConfigForm />
     </el-tab-pane>
-    <el-tab-pane :disabled="!userStore.isLoggedIn">
+    <el-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
           <el-icon>

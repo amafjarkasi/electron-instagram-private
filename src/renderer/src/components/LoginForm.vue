@@ -36,20 +36,47 @@ const popupMessage = (type, msg) => {
   })
 }
 
+const invokeLogin = async () => {
+  let res = await window.electron.ipcRenderer.invoke('login', {
+    username: form.username,
+    password: form.password
+  })
+  console.log('Login response:', res)
+  if (res.status == 'ok') {
+    popupMessage('success', 'Login successful')
+    loggerStore.addLog('Login successful with the following response: ' + JSON.stringify(res))
+    return res
+  } else {
+    popupMessage('error', 'Login failed')
+  }
+}
+
 const onSubmit = async () => {
-  loggerStore.addLog(`Logging in with username: ${form.username} and password: ${form.password}`)
+  loggerStore.addLog(
+    `Logging in with username: ${form.username} and password: ${form.password} with emulate user actions as ${form.emulateUserActions}`
+  )
   formRef.value.validate((valid) => {
     if (valid) {
       form.isLoading = true
-      if (form.username === 'admin' && form.password === 'admin') {
-        form.isLoading = false
-        userStore.login(form.username)
-        loggerStore.addLog('Logged in')
+      if (form.emulateUserActions) {
+        setTimeout(() => {
+          form.isLoading = false
+          form.successful = true
+          popupMessage('success', 'Login successful')
+          loggerStore.addLog('Login successful')
+          userStore.isLoggedIn(true)
+        }, 2000)
       } else {
-        form.isLoading = false
-        userStore.disconnect()
-        loggerStore.addLog('Failed to login')
-        popupMessage('Invalid username or password')
+        invokeLogin().then((res) => {
+          console.log('Login response vue:', res)
+          form.isLoading = false
+          form.successful = res.status == 'ok' ? true : false
+          if (res.status == 'ok') {
+            userStore.isLoggedIn(true)
+          } else {
+            userStore.isLoggedIn(false)
+          }
+        })
       }
     } else {
       console.log('Error submitting form')
@@ -138,4 +165,4 @@ const onSubmit = async () => {
 .submit-button {
   margin-top: 20px;
 }
-</style>
+</style>ElectronisLoggedIn__VLS_PublicProps

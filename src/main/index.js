@@ -63,6 +63,7 @@ async function getIgCookie(username, password) {
 async function getAccountInfo() {
   let session_id = await storage.getItem('ig:cookie')
   let accountInfo = await new igApi(session_id).accountInfo()
+  console.log('accountInfo', accountInfo)
   return accountInfo
 }
 
@@ -152,7 +153,12 @@ app.whenReady().then(() => {
     await storage.setItem('ig:password', password)
 
     let loggedIn = await getIgCookie(username, password)
-    return loggedIn
+    if (loggedIn) {
+      let accountInfo = await getAccountInfo()
+      return accountInfo
+    } else {
+      return { status: 'failed' }
+    }
   })
 
   ipcMain.handle('get-cookie', async (_event) => {
